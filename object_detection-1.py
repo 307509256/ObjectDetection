@@ -106,6 +106,13 @@ with detection_graph.as_default():
     detection_scores = detection_graph.get_tensor_by_name('detection_scores:0')
     detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
     num_detections = detection_graph.get_tensor_by_name('num_detections:0')
+    
+    # board
+    # "nvcamerasrc ! 'video/x-raw(memory:NVMM), width=(int)640, height=(int)480,format=(string)NV12' ! nvvidconv flip-method=0 ! video/x-raw ! appsink name=mysink");
+    #"nvcamerasrc ! 'video/x-raw(memory:NVMM), width=640, height=480, framerate=30/1, format=NV12' ! nvvidconv flip-method=0 ! nvegltransform ! nveglglessink -e");
+    
+    # usb camera
+    # "v4l2src device=/dev/video1 ! video/x-raw, width=(int)640, height=(int)480, format=RGB ! videoconvert ! video/x-raw, format=RGB ! videoconvert ! appsink name=mysink");
 
     gst = "v4l2src device=/dev/video0 ! video/x-raw, width=(int)640, height=(int)480, format=RGB ! videoconvert ! appsink"
     cap = cv2.VideoCapture(gst)
